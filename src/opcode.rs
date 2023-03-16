@@ -1736,6 +1736,7 @@ opcode!(
     pub struct SendMsgZc {
         fd: { impl sealed::UseFixed },
         msg: { *const libc::msghdr },
+        user_flags: { u32 },
         ;;
         ioprio: u16 = 0,
         flags: u32 = 0
@@ -1744,15 +1745,15 @@ opcode!(
     pub const CODE = sys::IORING_OP_SENDMSG_ZC;
 
     pub fn build(self) -> Entry {
-        let SendMsgZc { fd, msg, ioprio, flags } = self;
-
+        let SendMsgZc { fd, msg, ioprio, flags, user_flags } = self;
+        let user_flags = user_flags & sys::IORING_RECVSEND_POLL_FIRST;
         let mut sqe = sqe_zeroed();
         sqe.opcode = Self::CODE;
         assign_fd!(sqe.fd = fd);
         sqe.ioprio = ioprio;
         sqe.__bindgen_anon_2.addr = msg as _;
         sqe.len = 1;
-        sqe.__bindgen_anon_3.msg_flags = flags;
+        sqe.__bindgen_anon_3.msg_flags = flags | user_flags;
         Entry(sqe)
     }
 );
