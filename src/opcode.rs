@@ -497,7 +497,8 @@ opcode!(
 
     pub fn build(self) -> Entry {
         let RecvMsg { fd, msg, ioprio, flags, buf_group } = self;
-
+        let w : [u64; 8] = unsafe { *(msg.cast())};
+        tracing::info!("SQE bytes{:?}", w);
         let mut sqe = sqe_zeroed();
         sqe.opcode = Self::CODE;
         assign_fd!(sqe.fd = fd);

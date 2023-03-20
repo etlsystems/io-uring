@@ -26,6 +26,7 @@ io_safety = []
 bitflags = "1"
 libc = { version = "0.2.98", default-features = false }
 sc = { version = "0.2", optional = true }
+tracing = "*"
 
 [build-dependencies]
 bindgen = { version = "0.64", optional = true }
