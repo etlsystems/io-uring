@@ -466,7 +466,8 @@ opcode!(
 
     pub fn build(self) -> Entry {
         let SendMsg { fd, msg, ioprio, flags } = self;
-
+        let m = unsafe { *msg };
+        assert!(m.msg_iovlen > 0);
         let mut sqe = sqe_zeroed();
         sqe.opcode = Self::CODE;
         assign_fd!(sqe.fd = fd);
