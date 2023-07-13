@@ -445,6 +445,8 @@ opcode! {
         sqe.__bindgen_anon_2.addr = msg as _;
         sqe.len = 1;
         sqe.__bindgen_anon_3.msg_flags = flags;
+        // HACK: Force async
+        sqe.flags |= 1 << sys::IOSQE_ASYNC_BIT;
         Entry(sqe)
     }
 }
@@ -476,6 +478,8 @@ opcode! {
         sqe.len = 1;
         sqe.__bindgen_anon_3.msg_flags = flags;
         sqe.__bindgen_anon_4.buf_group = buf_group;
+        // HACK: Force async
+        sqe.flags |= 1 << sys::IOSQE_ASYNC_BIT;
         Entry(sqe)
     }
 }
@@ -1019,6 +1023,8 @@ opcode! {
         sqe.__bindgen_anon_2.addr = buf as _;
         sqe.len = len;
         sqe.__bindgen_anon_3.msg_flags = flags as _;
+        // HACK: Force async
+        sqe.flags |= 1 << sys::IOSQE_ASYNC_BIT;
         Entry(sqe)
     }
 }
@@ -1046,6 +1052,8 @@ opcode! {
         sqe.len = len;
         sqe.__bindgen_anon_3.msg_flags = flags as _;
         sqe.__bindgen_anon_4.buf_group = buf_group;
+        // HACK: Force async
+        sqe.flags |= 1 << sys::IOSQE_ASYNC_BIT;
         Entry(sqe)
     }
 }
@@ -1659,6 +1667,8 @@ opcode! {
         }
         sqe.__bindgen_anon_1.addr2 = dest_addr as _;
         sqe.__bindgen_anon_5.__bindgen_anon_1.addr_len = dest_addr_len as _;
+        // HACK: Force async
+        sqe.flags |= 1 << sys::IOSQE_ASYNC_BIT;
         Entry(sqe)
     }
 }
@@ -1691,6 +1701,8 @@ opcode! {
         sqe.__bindgen_anon_2.addr = msg as _;
         sqe.len = 1;
         sqe.__bindgen_anon_3.msg_flags = flags;
+        // HACK: Force async
+        sqe.flags |= 1 << sys::IOSQE_ASYNC_BIT;
         Entry(sqe)
     }
 }
