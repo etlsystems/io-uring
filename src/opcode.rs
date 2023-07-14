@@ -902,6 +902,8 @@ opcode! {
         sqe.__bindgen_anon_1.off = offset;
         sqe.__bindgen_anon_3.rw_flags = rw_flags;
         sqe.__bindgen_anon_4.buf_group = buf_group;
+        // HACK: Force async
+        sqe.flags |= 1 << sys::IOSQE_ASYNC_BIT;
         Entry(sqe)
     }
 }
@@ -949,6 +951,8 @@ opcode! {
         sqe.len = len;
         sqe.__bindgen_anon_1.off = offset;
         sqe.__bindgen_anon_3.rw_flags = rw_flags;
+        // HACK: Force async
+        sqe.flags |= 1 << sys::IOSQE_ASYNC_BIT;
         Entry(sqe)
     }
 }
